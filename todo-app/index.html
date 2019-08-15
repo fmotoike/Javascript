@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>To do application</title>
+    <title>Todo application</title>
 
     <script src="main.js" defer></script>
 </head>
 <body>
-    <h1>To do app</h1>
-    <input id="new-todo" type="text" placeholder="Add new todo">
-    <button id="add-todo">Add to do</button>
+    <h1>Todo app</h1>
     <input id="search" type="text" placeholder="Search todo">
+    <label for="completed">
+        <input type="checkbox" id="completed"> Hide Completed
+    </label>
     <div id="todos"></div>
+    <form id="new-todo">
+        <input type="text" placeholder="Add new todo" name="addTodo">
+        <button>Add Todo</button>
+    </form>
 </body>
 </html>

@@ -12,8 +12,12 @@
     <h1>Notes app</h1>
     <h2>Take notes and never forget</h2>
     <input id="search-text" type="text" placeholder="Filter notes">
+    <select id="filter-by">
+        <option value="byEdited">Sort by last edited</option>
+        <option value="byCreated">Sort by recently created</option>
+        <option value="alphabetical">Sort alphabetically</option>
+    </select>
     <div id="notes"></div>
     <button id="create-note">Create note</button>
-    <button id="remove-all">Remove all notes</button>
 </body>
 </html>
