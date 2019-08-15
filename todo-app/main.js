@@ -15,24 +15,43 @@ const todos = [{
     completed: false
 }];
 
-const incompleteTodos = todos.filter(function (todo) {
-    return !todo.completed;
-});
+const filters = {
+    searchText: ''
+}
 
-const summary = document.createElement('h3');
-summary.textContent = `You have ${incompleteTodos.length} todos left`;
-document.querySelector('body').appendChild(summary);
+const renderTodos = function (todos, filters) {
+    const filteredTodos = todos.filter(function (todo) {
+        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
+    });
 
-todos.forEach(function (todo) {
-    let newParagraph = document.createElement('p');
-    newParagraph.textContent = todo.text;
-    document.querySelector('body').appendChild(newParagraph);
-});
+    const incompleteTodos = filteredTodos.filter(function (todo) {
+        return !todo.completed;
+    });
+
+    document.querySelector('#todos').innerHTML = '';
+    
+    const summary = document.createElement('h3');
+    summary.textContent = `You have ${incompleteTodos.length} todos left`;
+    document.querySelector('#todos').appendChild(summary);
+    
+    filteredTodos.forEach(function (todo) {
+        let todoEl = document.createElement('p');
+        todoEl.textContent = todo.text;
+        document.querySelector('#todos').appendChild(todoEl);
+    });
+};
+
+renderTodos(todos, filters);
 
 document.querySelector('#add-todo').addEventListener('click', function (e) {
     console.log('I am adding a new to do.');
-})
+});
 
 document.querySelector('#new-todo').addEventListener('input', function (e) {
     console.log(e.target.value);
-})
+});
+
+document.querySelector('#search').addEventListener('input', function (e) {
+    filters.searchText = e.target.value;
+    renderTodos(todos, filters);
+});
