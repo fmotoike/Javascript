@@ -40,8 +40,23 @@ const renderTodos = function (todos, filters) {
 
 // GENERATE DOM STRUCTURE FOR A TODO
 const generateTodoDOM = function (todo) {
-    let todoEl = document.createElement('p');
-    todoEl.textContent = todo.text;
+    const todoEl = document.createElement('div');
+    const todoCheck = document.createElement('input');
+    const todoText = document.createElement('span');
+    const removeButton = document.createElement('button');
+    
+    // SET THE COMPLETED CHECKBOX
+    todoCheck.setAttribute('type', 'checkbox');
+    todoEl.appendChild(todoCheck);
+
+    // SET THE TODO TEXT
+    todoText.textContent = todo.text;
+    todoEl.appendChild(todoText);
+
+    // SET THE REMOVE TODO BUTTON
+    removeButton.textContent = 'x';
+    todoEl.appendChild(removeButton);
+
     return todoEl;
 }
 
