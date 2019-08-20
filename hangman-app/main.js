@@ -1,12 +1,12 @@
 const Hangman = function (word, remainingGuesses) {
     this.word = word.toLowerCase().split('')
     this.remainingGuesses = remainingGuesses
-    this.guessedLetters = ['c', 'e']
+    this.guessedLetters = []
 }
 
 Hangman.prototype.getPuzzle = function () {
     let puzzle = ''
-
+    
     this.word.forEach((letter) => {
         if (this.guessedLetters.includes(letter) || letter === ' ') {
             puzzle += letter
@@ -14,12 +14,30 @@ Hangman.prototype.getPuzzle = function () {
             puzzle += '*'
         }
     })
-
+    
     return puzzle
 }
 
-const gameOne = new Hangman('Cat', 3)
-console.log(gameOne.getPuzzle())
+Hangman.prototype.makeGuess = function (guess) {
+    guess = guess.toLowerCase()
+    const isUnique = !this.guessedLetters.includes(guess)
+    const isBadGuess = !this.word.includes(guess)
+    
+    if (isUnique) {
+        this.guessedLetters.push(guess)
+    }
 
-const gameTwo = new Hangman('New Orleans', 5)
-console.log(gameTwo.getPuzzle())
+    if (isUnique && isBadGuess) {
+        this.remainingGuesses--
+    }
+}
+
+
+const gameOne = new Hangman('Cat', 2)
+
+window.addEventListener('keypress', function (e) {
+    const guess = String.fromCharCode(e.charCode)
+    gameOne.makeGuess(guess)
+    console.log(gameOne.getPuzzle())
+    console.log(gameOne.remainingGuesses)
+})
