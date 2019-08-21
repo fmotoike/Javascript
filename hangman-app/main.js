@@ -1,26 +1,25 @@
 const puzzleEl = document.querySelector('#puzzle')
 const guessesEl = document.querySelector('#guesses')
 
-const gameOne = new Hangman('New Orleans', 4)
-
-puzzleEl.textContent = gameOne.puzzle
-guessesEl.textContent = gameOne.statusMessage
+let gameOne
 
 window.addEventListener('keypress', (e) => {
     const guess = String.fromCharCode(e.charCode)
     gameOne.makeGuess(guess)
+    render()
+})
+
+const render = () => {
     puzzleEl.textContent = gameOne.puzzle
     guessesEl.textContent = gameOne.statusMessage
-})
+}
 
-getPuzzle('2').then((puzzle) => {
-    console.log(puzzle)
-}).catch((err) => {
-    console.log(`Error: ${err}`)
-})
+const startGame = async () => {
+    const puzzle = await getPuzzle('2')
+    gameOne = new Hangman(puzzle, 5)
+    render()
+}
 
-getCountry('NZ').then((country) => {
-    console.log(country.name)
-}, (err) => {
-    console.log(`Error: ${err}`)
-})
+document.querySelector('#reset').addEventListener('click', startGame)
+
+startGame()
